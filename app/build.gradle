@@ -5,6 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -31,6 +32,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -80,4 +84,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
+}
+kapt {
+    correctErrorTypes true
 }
