@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainPagerFragment">
 
+    <fragment
+        android:id="@+id/mainPagerFragment"
+        android:name="io.fely.chucknorris_jokes.ui.fragment.MainPagerFragment"
+        android:label="main_view_pager_freagment"
+        tools:layout="@layout/main_view_pager_freagment" />
 </navigation>

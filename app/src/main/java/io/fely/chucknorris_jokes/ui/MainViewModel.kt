@@ -32,6 +32,16 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    var loadInitialProduct  = true
+    private val _selectedJokeCategoryStateFlow = MutableStateFlow<JokeCategory?>(null)
+    val selectedJokeCategoryStateFlow = _selectedJokeCategoryStateFlow.asLiveData()
+
+
+    fun setSelectedProductCategory(productCategory: JokeCategory)= viewModelScope.launch{
+        _selectedJokeCategoryStateFlow.value = productCategory
+    }
+
+
     fun requestJoke(query: String = "") = viewModelScope.launch{
         _jokeRequestStateFlow.value = Event(NetworkResource.Loading)
        if(query.isBlank()){

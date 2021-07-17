@@ -17,20 +17,38 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/inbox_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorHeight="3dp"
-            app:tabTextAppearance="@style/TabLayoutStyle" />
+     <androidx.appcompat.widget.LinearLayoutCompat
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         android:paddingTop="16dp"
+         android:paddingEnd="16dp"
+         android:paddingStart="16dp">
+
+         <androidx.appcompat.widget.AppCompatTextView
+             android:id="@+id/joke_category_text"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Chuck Norris Jokes"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
+
+         <com.google.android.material.tabs.TabLayout
+             android:id="@+id/tab_layout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="start"
+             app:tabIndicatorAnimationMode="elastic"
+             app:tabIndicatorHeight="3dp"
+             app:tabTextAppearance="@style/TabLayoutStyle" />
+     </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/inbox_pager"
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

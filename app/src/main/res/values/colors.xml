@@ -27,5 +27,9 @@
     <color name="blue_700_60">#CE344955</color>
 
     <color name="backgroundColor">#FFF8FBFF</color>
+    <color name="grey">#FFAAACAE</color>
+    <color name="transparent">#66000000</color>
+
+    <color name="joke_category_unselected">#97374957</color>
 
 </resources>
