@@ -29,6 +29,9 @@ In this application, the user is able:
 ![Joke Category List](/images/joke_list.png)
 
 
+# App GIF #
+![Application Gif](/images/chuck_noris_app.gif)
+
 # UI/UX Design #
 
 https://www.figma.com/file/zRLfdoY7xhZFILem3Gx2mF/Chuck-Norris-App
