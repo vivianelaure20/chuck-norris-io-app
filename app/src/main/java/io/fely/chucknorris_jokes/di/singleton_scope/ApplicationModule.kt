@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.fely.chucknorris_jokes.data.remote.ChuckNorrisApi
 import io.fely.chucknorris_jokes.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,5 +40,10 @@ object ApplicationModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
+    }
+    @Singleton
+    @Provides
+    fun provideChuckNorrisApi(retrofit: Retrofit): ChuckNorrisApi {
+        return retrofit.create(ChuckNorrisApi::class.java)
     }
 }

@@ -1,8 +1,8 @@
 package io.fely.chucknorris_jokes.data.remote.respose
 
 data class JokeResponse(
-    val icon_url: String,
-    val id: String,
-    val url: String,
-    val value: String
+    var icon_url: String,
+    var id: String,
+    var url: String,
+    var value: String
 )

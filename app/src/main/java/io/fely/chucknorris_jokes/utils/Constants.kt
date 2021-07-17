@@ -11,7 +11,6 @@ import javax.inject.Singleton
 
 object Constants {
 
-    const val BASE_URL = "https://api.chucknorris.io/jokes"
-
+    const val BASE_URL = "https://api.chucknorris.io/jokes/"
 
 }
