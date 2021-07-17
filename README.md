@@ -16,23 +16,23 @@ In this application, the user is able:
 
 * Model-View-ViewModel (MVVM) architecture
 ![MVVM Architecture](/images/Archetecture.jpg)
-
+# #
 * Single Activity Model
 * Navigation Component.
 * Hilt Dependency Injection.
 * Kotlin Coroutines
 * Kotlin Flow and StateFow
-
+# #
 ![Dependency Injecttion Mapping](/images/DaggerDependencyInjectionMapping.jpg)
 
 # ScreenShots #
 ![Random Joke Loading](/images/random_joke_loading.png)
-* 
+# #
 ![Random Joke](/images/radom_joke.png)
-* 
+# #
 ![Joke Category List](/images/joke_list.png)
 
-* 
+ 
 # App GIF #
 ![Application Gif](/images/chuck_noris_app.gif)
 
