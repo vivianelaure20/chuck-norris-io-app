@@ -10,6 +10,9 @@ interface ChuckNorrisApi {
     @GET("random")
     suspend fun getJoke(@Query("category") query: String): JokeResponse
 
+    @GET("random")
+    suspend fun getJokeRandom(): JokeResponse
+
     @GET("categories")
     suspend fun getJokeCategoryList(): List<String>
 

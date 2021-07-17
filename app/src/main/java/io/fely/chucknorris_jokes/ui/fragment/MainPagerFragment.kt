@@ -12,6 +12,8 @@ import io.fely.chucknorris_jokes.R
 import io.fely.chucknorris_jokes.databinding.MainViewPagerFreagmentBinding
 import io.fely.chucknorris_jokes.ui.MainViewModel
 import io.fely.chucknorris_jokes.ui.adapter.ViewPagerFragmentAdapter
+import io.fely.chucknorris_jokes.ui.pager_transfomer.ZoomOutPageTransformer
+import io.fely.chucknorris_jokes.utils.reduceDragSensitivity
 
 @AndroidEntryPoint
 class MainPagerFragment: Fragment(R.layout.main_view_pager_freagment) {
@@ -37,7 +39,6 @@ class MainPagerFragment: Fragment(R.layout.main_view_pager_freagment) {
             RandomJokeFragment(),
         )
         viewPager = binding.pager
-        viewPager.isUserInputEnabled = false
         tabLayout = binding.tabLayout
         val viewPagerAdapter  = ViewPagerFragmentAdapter(
             fragmentList,
@@ -45,8 +46,9 @@ class MainPagerFragment: Fragment(R.layout.main_view_pager_freagment) {
             lifecycle
         )
         viewPager.adapter = viewPagerAdapter
+        viewPager.setPageTransformer(ZoomOutPageTransformer())
         viewPager.registerOnPageChangeCallback(onPageChangeCallback)
-
+        viewPager.reduceDragSensitivity()
         attachViewPager()
     }
 
@@ -63,10 +65,13 @@ class MainPagerFragment: Fragment(R.layout.main_view_pager_freagment) {
         }.attach()
     }
 
+
     private var onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             if (position == 0){
                 viewModel.requestJokeCategoryList()
+            }else{
+                viewModel.requestRandomJoke()
             }
         }
     }

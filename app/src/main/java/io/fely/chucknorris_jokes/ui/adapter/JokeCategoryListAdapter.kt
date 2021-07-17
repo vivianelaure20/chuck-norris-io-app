@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -17,13 +18,13 @@ import io.fely.chucknorris_jokes.data.remote.respose.JokeResponse
 import io.fely.chucknorris_jokes.databinding.JokeCategoryItemBinding
 
 class JokeCategoryListAdapter(
-    private val onItemClick: (JokeCategory, Int) -> Unit,
+    private val onItemClick: (JokeCategory) -> Unit,
     private val selectedItem: LiveData<JokeCategory?>,
     private val lifecycleOwner: LifecycleOwner
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<JokeCategory>() {
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<JokeCategory>() {
 
         override fun areItemsTheSame(oldItem: JokeCategory, newItem: JokeCategory): Boolean {
             return oldItem.id == newItem.id
@@ -76,7 +77,7 @@ class JokeCategoryListAdapter(
     class JokeCategoryListViewHolder
     constructor(
         private val itemBinding: JokeCategoryItemBinding,
-        private val onItemClick: (JokeCategory, Int) -> Unit
+        private val onItemClick: (JokeCategory) -> Unit
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         private val nameTextView: AppCompatTextView = itemBinding.jokeCategoryItemName
@@ -86,7 +87,7 @@ class JokeCategoryListAdapter(
 
         fun bind(item: JokeCategory) = with(itemView) {
             itemBinding.root.setOnClickListener {
-                onItemClick.invoke(item, bindingAdapterPosition)
+                onItemClick.invoke(item)
             }
 
             itemBinding.jokeCategoryItemName.text = item.name
@@ -101,12 +102,9 @@ class JokeCategoryListAdapter(
 
                 itemParent.setBackgroundResource(R.drawable.joke_category_circle_shape_with_border_unselect_item)
                 nameTextView.setTextColor(ContextCompat.getColor(nameTextView.context, R.color.black_900))
-                itemViewLayout.setBackgroundColor(ContextCompat.getColor(itemViewLayout.context, R.color.blue_200))
+                itemViewLayout.setBackgroundColor(ContextCompat.getColor(itemViewLayout.context, R.color.blue_100))
             }
         }
-    }
 
-    interface Interaction {
-        fun onItemSelected(position: Int, item: JokeResponse)
     }
 }

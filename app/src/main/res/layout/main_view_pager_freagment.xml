@@ -29,8 +29,10 @@
              android:id="@+id/joke_category_text"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Chuck Norris Jokes"
+             android:text="@string/chuck_norris_jokes"
              app:layout_constraintTop_toTopOf="parent"
+             android:textStyle="bold"
+             android:textColor="?attr/colorPrimary"
              app:layout_constraintStart_toStartOf="parent"
              android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
 
@@ -41,6 +43,7 @@
              android:layout_gravity="start"
              app:tabIndicatorAnimationMode="elastic"
              app:tabIndicatorHeight="3dp"
+
              app:tabTextAppearance="@style/TabLayoutStyle" />
      </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Chuck Noris Jokes</string>
+    <string name="chuck_norris_jokes">Chuck Norris Jokes</string>
+    <string name="joke_categories">Joke Categories</string>
+    <string name="select_joke_category">Select joke category</string>
+    <string name="details">Details</string>
+    <string name="random_joke_about_history_click_next_arrow_to_get_the_next_joke">Random joke about history, click next arrow to get the next joke</string>
 </resources>

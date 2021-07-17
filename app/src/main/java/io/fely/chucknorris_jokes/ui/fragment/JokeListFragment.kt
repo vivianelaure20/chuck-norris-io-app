@@ -3,14 +3,13 @@ package io.fely.chucknorris_jokes.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import io.fely.chucknorris_jokes.R
 import io.fely.chucknorris_jokes.data.local.model.JokeCategory
@@ -18,6 +17,7 @@ import io.fely.chucknorris_jokes.databinding.JokeListFragmentBinding
 import io.fely.chucknorris_jokes.ui.MainViewModel
 import io.fely.chucknorris_jokes.ui.adapter.JokeCategoryListAdapter
 import io.fely.chucknorris_jokes.utils.NetworkResource
+import io.fely.chucknorris_jokes.utils.observeJokeRequest
 import io.fely.chucknorris_jokes.utils.setVisibility
 
 class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
@@ -30,9 +30,8 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
     private lateinit var categoryLstShimmerLayout: ShimmerFrameLayout
     private lateinit var jokeContent: TextView
     private lateinit var jokeCategoryDescription: TextView
-    private lateinit var jokeCardScrollView: ScrollView
+    private lateinit var jokeCardScrollView: NestedScrollView
     private lateinit var jokeRequestProgressBar: ProgressBar
-    private lateinit var nextJokeBtn: ImageButton
 
 
 
@@ -58,13 +57,15 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
         binding?.let {
             jokeCategoryListView = it.jokeCategoryListview
             categoryLstShimmerLayout = it.itemCategoryShimmerLayout
-            jokeContent = it.jokeContent
-            jokeCardScrollView = it.jokeDescriptionParent
-            jokeRequestProgressBar = it.jokeRequestProgressbar
+            jokeContent = it.jokeCardLayout.jokeContent
+            jokeCardScrollView = it.jokeCardLayout.jokeDescriptionParent
+            jokeRequestProgressBar = it.jokeCardLayout.jokeRequestProgressbar
             jokeCategoryDescription = it.jokeDescription
-            it.shuffleBtn.setOnClickListener{
+            it.jokeCardLayout.shuffleBtn.setOnClickListener{
                 if(selectedCategoryName.isNotBlank()){
                     requestJoke(selectedCategoryName)
+                }else{
+                    viewModel.requestJokeCategoryList()
                 }
             }
         }
@@ -79,7 +80,7 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
 
     }
 
-    private fun onCategoryClicked(jokeCategory: JokeCategory, position: Int){
+    private fun onCategoryClicked(jokeCategory: JokeCategory){
         viewModel.setSelectedProductCategory(jokeCategory)
     }
     private fun observeGetJokeCategoryRequest(){
@@ -87,21 +88,18 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
         viewModel.jokeCategoryRequestMutableStataFlow.observe(viewLifecycleOwner){
             when(val value = it.getContentIfNotHandled()){
                 is NetworkResource.Loading ->{
-                    Log.d(TAG, "observeGetJokeCategoryRequest: *******Loading*********")
                     jokeCategoryListView.setVisibility(false)
                     categoryLstShimmerLayout.setVisibility(true)
 
                 }
                 is NetworkResource.Error ->{
-                    Log.d(TAG, "observeGetJokeCategoryRequest: *******Error: ${value.exception}")
+                    binding?.jokeCardLayout?.jokeContent?.text = value.message
                     jokeCategoryListView.setVisibility(true)
                     categoryLstShimmerLayout.setVisibility(false)
                 }
                 is NetworkResource.Success -> {
-                    Log.d(TAG, "observeGetJokeCategoryRequest: *******Success : ${value.data}")
                     //
                     if(value.data.isNotEmpty()){
-//                        requestJoke(value.data[0].name)
                         jokeCategoryListView.setVisibility(true)
                         if(viewModel.loadInitialProduct){
                             viewModel.loadInitialProduct = false
@@ -116,25 +114,13 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
     }
 
     private fun observeJokeRequest(){
-        viewModel.jokeRequestStateFlow.removeObservers(viewLifecycleOwner)
-        viewModel.jokeRequestStateFlow.observe(viewLifecycleOwner){
-            when(val value = it.getContentIfNotHandled()){
-                is NetworkResource.Loading ->{
-                    showJokeRequestProgressBar(true)
-                }
-                is NetworkResource.Error ->{
-                    jokeContent.text = value.message
-                    showJokeRequestProgressBar(false)
-                }
-                is NetworkResource.Success -> {
-
-                    val text = "\" ${value.data.value} \""
-                    jokeContent.text = text
-                    showJokeRequestProgressBar(false)
-                }
-            }
-        }
+        binding?.jokeCardLayout?.observeJokeRequest(
+            viewModel.jokeRequestStateFlow,
+            viewLifecycleOwner
+        )
     }
+
+
 
     private fun observeSelectedJokeCategory(){
         viewModel.selectedJokeCategoryStateFlow.removeObservers(viewLifecycleOwner)
@@ -148,11 +134,6 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
                 }
             }
         }
-    }
-
-    private fun showJokeRequestProgressBar(show: Boolean){
-        jokeRequestProgressBar.setVisibility(show)
-        jokeCardScrollView.setVisibility(!show)
     }
 
     private fun requestJoke(query: String){

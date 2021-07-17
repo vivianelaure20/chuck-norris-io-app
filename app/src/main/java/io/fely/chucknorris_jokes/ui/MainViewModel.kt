@@ -20,7 +20,9 @@ class MainViewModel @Inject constructor(
 ) : ViewModel(){
 
     private val _jokeRequestStateFlow = MutableStateFlow<Event<NetworkResource<JokeResponse>>>(Event(NetworkResource.Empty))
+    private val _randomJokeRequestStateFlow = MutableStateFlow<Event<NetworkResource<JokeResponse>>>(Event(NetworkResource.Empty))
     val jokeRequestStateFlow = _jokeRequestStateFlow.asLiveData()
+    val randomJokeRequestStateFlow = _randomJokeRequestStateFlow.asLiveData()
 
     private val _jokeCategoryRequestMutableStataFlow = MutableStateFlow<Event<NetworkResource<List<JokeCategory>>>>(Event(NetworkResource.Empty))
     val jokeCategoryRequestMutableStataFlow = _jokeCategoryRequestMutableStataFlow.asLiveData()
@@ -37,22 +39,27 @@ class MainViewModel @Inject constructor(
     val selectedJokeCategoryStateFlow = _selectedJokeCategoryStateFlow.asLiveData()
 
 
+    /**
+     *
+     */
     fun setSelectedProductCategory(productCategory: JokeCategory)= viewModelScope.launch{
         _selectedJokeCategoryStateFlow.value = productCategory
     }
 
-
-    fun requestJoke(query: String = "") = viewModelScope.launch{
+    /**
+     *
+     */
+    fun requestJoke(query: String) = viewModelScope.launch{
         _jokeRequestStateFlow.value = Event(NetworkResource.Loading)
-       if(query.isBlank()){
-           mainRepository.getJoke("").collect {
-               _jokeRequestStateFlow.value = Event(it)
-           }
-       }else{
-           mainRepository.getJoke(query).collect {
-               _jokeRequestStateFlow.value = Event(it)
-           }
-       }
+        mainRepository.getJoke(query).collect {
+            _jokeRequestStateFlow.value = Event(it)
+        }
     }
 
+    fun requestRandomJoke() = viewModelScope.launch{
+        _randomJokeRequestStateFlow.value = Event(NetworkResource.Loading)
+        mainRepository.getJoke("").collect {
+            _randomJokeRequestStateFlow.value = Event(it)
+        }
+    }
 }
