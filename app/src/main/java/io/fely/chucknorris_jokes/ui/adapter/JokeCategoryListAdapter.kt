@@ -18,7 +18,7 @@ import io.fely.chucknorris_jokes.data.remote.respose.JokeResponse
 import io.fely.chucknorris_jokes.databinding.JokeCategoryItemBinding
 
 class JokeCategoryListAdapter(
-    private val onItemClick: (JokeCategory) -> Unit,
+    private val onItemClick: (JokeCategory, Int) -> Unit,
     private val selectedItem: LiveData<JokeCategory?>,
     private val lifecycleOwner: LifecycleOwner
 ) :
@@ -77,7 +77,7 @@ class JokeCategoryListAdapter(
     class JokeCategoryListViewHolder
     constructor(
         private val itemBinding: JokeCategoryItemBinding,
-        private val onItemClick: (JokeCategory) -> Unit
+        private val onItemClick: (JokeCategory, Int) -> Unit
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         private val nameTextView: AppCompatTextView = itemBinding.jokeCategoryItemName
@@ -87,7 +87,7 @@ class JokeCategoryListAdapter(
 
         fun bind(item: JokeCategory) = with(itemView) {
             itemBinding.root.setOnClickListener {
-                onItemClick.invoke(item)
+                onItemClick.invoke(item, bindingAdapterPosition)
             }
 
             itemBinding.jokeCategoryItemName.text = item.name

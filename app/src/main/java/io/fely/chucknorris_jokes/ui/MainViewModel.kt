@@ -27,16 +27,22 @@ class MainViewModel @Inject constructor(
     private val _jokeCategoryRequestMutableStataFlow = MutableStateFlow<Event<NetworkResource<List<JokeCategory>>>>(Event(NetworkResource.Empty))
     val jokeCategoryRequestMutableStataFlow = _jokeCategoryRequestMutableStataFlow.asLiveData()
 
+    var loadInitialProduct  = true
+    var selectedPosition: Int = 0
+    private val _selectedJokeCategoryStateFlow = MutableStateFlow<JokeCategory?>(null)
+    val selectedJokeCategoryStateFlow = _selectedJokeCategoryStateFlow.asLiveData()
+
+
+
+    /**
+     *
+     */
     fun requestJokeCategoryList() = viewModelScope.launch{
         _jokeCategoryRequestMutableStataFlow.value = Event(NetworkResource.Loading)
         mainRepository.getJokeCategoryList().collect {
             _jokeCategoryRequestMutableStataFlow.value = Event(it)
         }
     }
-
-    var loadInitialProduct  = true
-    private val _selectedJokeCategoryStateFlow = MutableStateFlow<JokeCategory?>(null)
-    val selectedJokeCategoryStateFlow = _selectedJokeCategoryStateFlow.asLiveData()
 
 
     /**

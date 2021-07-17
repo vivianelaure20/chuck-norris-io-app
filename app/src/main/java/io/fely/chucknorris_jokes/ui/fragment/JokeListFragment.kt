@@ -80,37 +80,42 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
 
     }
 
-    private fun onCategoryClicked(jokeCategory: JokeCategory){
+
+    private fun onCategoryClicked(jokeCategory: JokeCategory, position: Int){
         viewModel.setSelectedProductCategory(jokeCategory)
+        viewModel.selectedPosition = position
     }
     private fun observeGetJokeCategoryRequest(){
         viewModel.jokeCategoryRequestMutableStataFlow.removeObservers(viewLifecycleOwner)
         viewModel.jokeCategoryRequestMutableStataFlow.observe(viewLifecycleOwner){
             when(val value = it.getContentIfNotHandled()){
                 is NetworkResource.Loading ->{
-                    jokeCategoryListView.setVisibility(false)
-                    categoryLstShimmerLayout.setVisibility(true)
-
+                    setShimmerVisibility(true)
                 }
                 is NetworkResource.Error ->{
                     binding?.jokeCardLayout?.jokeContent?.text = value.message
-                    jokeCategoryListView.setVisibility(true)
-                    categoryLstShimmerLayout.setVisibility(false)
+                    setShimmerVisibility(false)
                 }
                 is NetworkResource.Success -> {
-                    //
                     if(value.data.isNotEmpty()){
-                        jokeCategoryListView.setVisibility(true)
                         if(viewModel.loadInitialProduct){
+                            viewModel.selectedPosition = 0
                             viewModel.loadInitialProduct = false
                             viewModel.setSelectedProductCategory(value.data[0])
                         }
                     }
+                    val position = viewModel.selectedPosition
+                    jokeCategoryListView.scrollToPosition(position)
                     jokeCategoryAdapter.submitList(value.data)
-                    categoryLstShimmerLayout.setVisibility(false)
+                    setShimmerVisibility(false)
                 }
             }
         }
+    }
+
+    private fun setShimmerVisibility(show: Boolean){
+        categoryLstShimmerLayout.setVisibility(show)
+        jokeCategoryListView.setVisibility(!show)
     }
 
     private fun observeJokeRequest(){
