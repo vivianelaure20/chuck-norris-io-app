@@ -15,15 +15,20 @@ In this application, the user is able:
 ### The app is developed using: ###
 
 * Model-View-ViewModel (MVVM) architecture
-![MVVM Architecture](/images/Archetecture.jpg)
-# #
 * Single Activity Model
 * Navigation Component.
 * Hilt Dependency Injection.
 * Kotlin Coroutines
 * Kotlin Flow and StateFow
-# #
-![Dependency Injecttion Mapping](/images/DaggerDependencyInjectionMapping.jpg)
+* LiveData
+* Retrofit
+* 
+# Dependency Injection Mapping #
+![Dependency Injecttion Mapping](/images/chucknorris_app_architecture.png)
+
+# Data flow architecture #
+![Dependency Injecttion Mapping](/images/chucknorris_app_architecture.png)
+
 
 # ScreenShots #
 ![Random Joke Loading](/images/random_joke_loading.png)
