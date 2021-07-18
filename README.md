@@ -18,7 +18,7 @@ https://www.figma.com/file/zRLfdoY7xhZFILem3Gx2mF/Chuck-Norris-App
 # Architecture # 
 
 ### The app is developed using: ###
-
+* 100 % Kotlin
 * Model-View-ViewModel (MVVM) architecture
 * Single Activity Model
 * Navigation Component.
@@ -27,6 +27,9 @@ https://www.figma.com/file/zRLfdoY7xhZFILem3Gx2mF/Chuck-Norris-App
 * Kotlin Flow and StateFow
 * LiveData
 * Retrofit
+* Glide
+* ViewPager2 with TabLayout
+
 * 
 # Dependency Injection Mapping #
 ![Dependency Injecttion Mapping](/images/chucknorris_app_architecture.png)
