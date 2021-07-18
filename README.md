@@ -1,6 +1,6 @@
 # README #
 
-This README  documents necessary steps  to get the application up and running.
+A  small project with 2 screens to showcase  the MVVM architecture, Navigation Component, Hilt Dependency Injection, Kotlin Coroutines, Coroutine Flow and StateFlow, Retrofit Interaction  with a free API namely https://api.chucknorris.io/ ,  and displaying a few jokes in a RecyclerView, and  ViewPager to be able to swipe through fragments.
 
 # Chuck Norris Jokes App #
 This is an an Android App that queries data to Chuck Norris IO API to retrieve and show Chuck Norries Jokes.
