@@ -10,6 +10,11 @@ In this application, the user is able:
 * Select and request a random joke for the selected category
 * To request different jokes based on selected category
 
+# UI/UX Design #
+
+https://www.figma.com/file/zRLfdoY7xhZFILem3Gx2mF/Chuck-Norris-App
+
+
 # Architecture # 
 
 ### The app is developed using: ###
@@ -27,8 +32,7 @@ In this application, the user is able:
 ![Dependency Injecttion Mapping](/images/chucknorris_app_architecture.png)
 
 # Data flow architecture #
-![Dependency Injecttion Mapping](/images/chucknorris_app_architecture.png)
-
+![Dependency Injecttion Mapping](/images/chucknorris_app_data_flow.PNG)
 
 # ScreenShots #
 ![Random Joke Loading](/images/random_joke_loading.png)
@@ -41,9 +45,6 @@ In this application, the user is able:
 # App GIF #
 ![Application Gif](/images/chuck_noris_app.gif)
 
-# UI/UX Design #
-
-https://www.figma.com/file/zRLfdoY7xhZFILem3Gx2mF/Chuck-Norris-App
 
 ## Who do I talk to? ##
 * Repo owner or admin : Felly
