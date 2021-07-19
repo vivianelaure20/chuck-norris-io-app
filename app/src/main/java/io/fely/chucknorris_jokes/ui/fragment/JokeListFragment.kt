@@ -1,7 +1,6 @@
 package io.fely.chucknorris_jokes.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.widget.NestedScrollView
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import io.fely.chucknorris_jokes.R
 import io.fely.chucknorris_jokes.data.local.model.JokeCategory
@@ -82,7 +80,7 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
 
 
     private fun onCategoryClicked(jokeCategory: JokeCategory, position: Int){
-        viewModel.setSelectedProductCategory(jokeCategory)
+        viewModel.setSelectedJokeCategory(jokeCategory)
         viewModel.selectedPosition = position
     }
     private fun observeGetJokeCategoryRequest(){
@@ -98,10 +96,10 @@ class JokeListFragment: Fragment(R.layout.joke_list_fragment) {
                 }
                 is NetworkResource.Success -> {
                     if(value.data.isNotEmpty()){
-                        if(viewModel.loadInitialProduct){
+                        if(viewModel.loadInitialJokeCategory){
                             viewModel.selectedPosition = 0
-                            viewModel.loadInitialProduct = false
-                            viewModel.setSelectedProductCategory(value.data[0])
+                            viewModel.loadInitialJokeCategory = false
+                            viewModel.setSelectedJokeCategory(value.data[0])
                         }
                     }
                     val position = viewModel.selectedPosition
